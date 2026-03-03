@@ -152,7 +152,7 @@ install_cert() {
         --cert-file      "$CERT_DIR/cert.crt" \
         --key-file       "$CERT_DIR/private.key" \
         --fullchain-file "$CERT_DIR/fullchain.crt" \
-        --reloadcmd      "systemctl reload nginx && systemctl restart trojan-go"
+        --reloadcmd      "systemctl is-active nginx && systemctl reload nginx; systemctl restart trojan-go"
 
     chmod 600 "$CERT_DIR/private.key"
     info "证书已安装到 $CERT_DIR"
