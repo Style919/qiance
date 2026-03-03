@@ -105,9 +105,10 @@ input_password() {
 # -------- 申请 Let's Encrypt 证书（免邮箱） --------
 install_cert() {
     info "安装 acme.sh..."
-    curl -fsSL https://get.acme.sh | sh -s -- --no-profile
-    source ~/.bashrc 2>/dev/null || true
+    curl -fsSL https://get.acme.sh | sh
+    export PATH="$HOME/.acme.sh:$PATH"
     ACME="$HOME/.acme.sh/acme.sh"
+    [[ ! -f "$ACME" ]] && error "acme.sh 安装失败，请检查网络后重试"
 
     info "切换到 Let's Encrypt（免邮箱）..."
     "$ACME" --set-default-ca --server letsencrypt
